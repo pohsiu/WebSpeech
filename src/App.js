@@ -15,6 +15,7 @@ class App extends Component {
       result=>{
         console.log('result',result);
         this.setState({result});
+        this.startSpeak(result,'zh-TW');
         return result;
       }
     ).catch(e=>{
@@ -26,6 +27,11 @@ class App extends Component {
       }
       throw e;
     })
+  }
+  startSpeak = (utterance, lang) => {
+    let u = new SpeechSynthesisUtterance(utterance);
+    u.lang = lang;
+    speechSynthesis.speak(u);
   }
   stopService = () => {
     recognitionService.stop();
